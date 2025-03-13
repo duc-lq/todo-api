@@ -31,6 +31,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-        run:
+        run: |
           docker build -t duclq/todo-api:latest .
           docker push duclq/todo-api:latest
