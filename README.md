@@ -5,7 +5,7 @@ This is a simple REST API built with Spring Boot (Spring Web) and containerized 
 1. Clone repo: gh repo clone duc-lq/todo-api
 2. Build Docker image: docker build -t todo-api .
 3. Run container: docker run -p 8080:8080 todo-api
-4. Test (you can use Postman collection to import collection back to your Postman for testing):
+4. Test (you can use Postman collection to import collection back to your Postman for testing, please find in src/main/resources/):
 - GET - http://localhost:8080/todos
 - POST - http://localhost:8080/todos with body {"task":"Clone repo"}
 - POST - http://localhost:8080/todos with body {"task":"Build docker image"}
