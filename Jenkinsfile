@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.9.6-eclipse-temurin-21'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }
+
     tools {
         jdk 'JDK21'
     }
@@ -13,7 +19,6 @@ pipeline {
 
         stage('Build'){
             steps {
-                sh 'export JAVA_HOME=$(/usr/libexec/java_home -v 21 || echo $JAVA_HOME)'
                 sh 'chmod +x ./mvnw'
                 sh './mvnw package -DskipTests'
             }
