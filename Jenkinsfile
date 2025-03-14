@@ -10,17 +10,17 @@ pipeline {
 
         stage('Build'){
             steps {
-                sh 'chmod +x ./mvnw'
-                sh './mvnw package -DskipTests'
+                //bat 'chmod +x mvnw'
+                bat 'mvnw package -DskipTests'
             }
         }
 
         stage('Docker Build & Push'){
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
-                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
-                    sh 'docker build -t duclq/todo-api:latest .'
-                    sh 'docker push duclq/todo-api:latest'
+                    bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                    bat 'docker build -t duclq/todo-api:latest .'
+                    bat 'docker push duclq/todo-api:latest'
                 }
             }
         }
