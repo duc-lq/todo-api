@@ -13,6 +13,7 @@ pipeline {
 
         stage('Build'){
             steps {
+                sh 'export JAVA_HOME=$(/usr/libexec/java_home -v 21 || echo $JAVA_HOME)'
                 sh 'chmod +x ./mvnw'
                 sh './mvnw package -DskipTests'
             }
