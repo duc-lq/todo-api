@@ -23,7 +23,8 @@ public class TodoController {
     public ResponseEntity<Todo> addTodo(@RequestBody Todo todo){
         todo.setId(idCounter++);
         todos.add(todo);
-        return new ResponseEntity<>(todo, HttpStatus.CREATED);
+        return new ResponseEntity<>(todo, HttpStatus.CREATED)
+        //return ResponseEntity.status(201).body(todo);
     }
 
     @DeleteMapping("/{id}")
