@@ -6,10 +6,6 @@ pipeline {
         }
     }
 
-    tools {
-        jdk 'JDK21'
-    }
-
     stages {
         stage('Checkout'){
             steps {
