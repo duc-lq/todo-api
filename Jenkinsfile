@@ -16,6 +16,7 @@ pipeline {
 
         stage('Docker Build & Push'){
             steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')])
                 sh 'docker build -t duclq/todo-api:latest .'
                 sh 'docker push duclq/todo-api:latest'
             }
