@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+        jdk 'JDK21'
+    }
+
     stages {
         stage('Checkout'){
             steps {
@@ -16,9 +20,11 @@ pipeline {
 
         stage('Docker Build & Push'){
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')])
-                sh 'docker build -t duclq/todo-api:latest .'
-                sh 'docker push duclq/todo-api:latest'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh 'docker build -t duclq/todo-api:latest .'
+                    sh 'docker push duclq/todo-api:latest'
+                }
             }
         }
 
