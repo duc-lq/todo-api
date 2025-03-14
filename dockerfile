@@ -1,15 +1,10 @@
-# Base image
-FROM openjdk:21-jdk-slim
-
-# Set working directory
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
-
-# Copy Maven files and build
 COPY . .
-RUN ./mvnw package -DskipTests
+RUN mvn package -DskipTests
 
-# Copy JAR file
-COPY target/springanddocker-0.0.1-SNAPSHOT.jar app.jar
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-# Run application
 ENTRYPOINT ["java", "-jar", "app.jar"]
